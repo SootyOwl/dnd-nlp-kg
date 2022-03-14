@@ -6,7 +6,7 @@ def test_triple_generation():
     assert Triple(subject="Bart", predicate="hates", object="school") in triple
 
 def test_triples_generation():
-    triples = logic("Bart is the brother of Lisa. Homer is married to Marge. Maggie is the daughter of Homer and Marge.")
-    assert Triple(subject="Bart", predicate="is older brother", object="Lisa") in triples
+    triples = logic("Bart is the brother of Lisa. Homer is married to Marge. Maggie is the daughter of Homer.")
+    assert Triple(subject="Bart", predicate="is the brother of", object="Lisa") in triples
     assert Triple(subject="Homer", predicate="is married", object="Marge") in triples
-    assert Triple(subject="Maggie", predicate="is daughter", object="Homer") in triples
+    assert Triple(subject="Maggie", predicate="is the daughter of", object="Homer") in triples
