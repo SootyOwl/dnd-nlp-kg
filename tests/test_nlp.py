@@ -14,7 +14,7 @@ def test_triples_generation():
 def test_noun_expansion():
     input = "Bart attends Springfield Elementary School. Homer works at Springfield Nuclear Power Plant"
     expected = [
-        Triple("Bart", "attend", "Springfield Elementary School"),
+        Triple("Bart", "attends", "Springfield Elementary School"),
         Triple("Homer", "works at", "Springfield Nuclear Power Plant"),
     ]
     triples = logic(input)
@@ -32,3 +32,6 @@ def test_conjuctions():
     triples = logic(input)
     for test in expected:
         assert test in triples
+
+def test_passive_sentences():
+    input = "The "

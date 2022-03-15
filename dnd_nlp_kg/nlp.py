@@ -8,8 +8,9 @@ from spacy.matcher import Matcher
 import coreferee
 
 nlp = spacy.load('en_core_web_sm')
+nlp.add_pipe('merge_entities')
 nlp.add_pipe('sentencizer')
-# nlp.add_pipe('coreferee')
+nlp.add_pipe('coreferee')
 
 @dataclass
 class Triple:
