@@ -80,8 +80,9 @@ def get_relation(doc):
                {'DEP': 'det', 'OP': "?"},
                {'DEP': 'attr', 'OP': "?"},
                {'DEP':'prep','OP':"?"},
-               {'DEP':'agent','OP':"?"},
-               {'POS':'ADJ','OP':"?"}]
+            #    {'DEP':'agent','OP':"?"},
+               {'POS':'ADJ','OP':"?"}
+               ]
 
     matcher.add("relation", [pattern])
 
