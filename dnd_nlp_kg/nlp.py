@@ -8,9 +8,10 @@ from spacy.matcher import Matcher
 import coreferee
 
 nlp = spacy.load('en_core_web_sm')
-nlp.add_pipe('merge_entities')
 nlp.add_pipe('sentencizer')
 nlp.add_pipe('coreferee')
+nlp.add_pipe('merge_noun_chunks')
+nlp.add_pipe('merge_entities')
 
 @dataclass
 class Triple:
@@ -30,21 +31,21 @@ def read(filename) -> str:
     with open(filename, 'r') as fin:
         return '. '.join([line.strip() for line in fin.readlines()])
 
-def subtree_matcher(doc):
+def subtree_matcher(sent):
     subjpass = 0
 
-    for tok in doc:
+    for tok in sent:
         # find dependency tag that contains the text "subjpass"    
         if not tok.dep_.find("subjpass") == -1:
             subjpass = 1
             break
 
-    x = ''
-    y = ''
+    x = None
+    y = None
     # TODO: use a matcher, define some patterns
     # if subjpass == 1 then sentence is passive
     if subjpass == 1:
-        for i,tok in enumerate(doc):
+        for i,tok in enumerate(sent):
             if tok.dep_.find("subjpass") == True:
                 y = tok
 
@@ -56,7 +57,7 @@ def subtree_matcher(doc):
     
     # if subjpass == 0 then sentence is not passive
     else:
-        for i,tok in enumerate(doc):
+        for i,tok in enumerate(sent):
             if tok.dep_.endswith("subj") == True:
                 x = tok
 
@@ -68,7 +69,7 @@ def subtree_matcher(doc):
 
     return x,y
 
-def get_relation(doc):
+def get_relation(sent):
     """
     Get relation between sentence entities."""
 
@@ -86,12 +87,8 @@ def get_relation(doc):
 
     matcher.add("relation", [pattern])
 
-    matches = matcher(doc)
-    k = len(matches) - 1
-
-    span = doc[matches[k][1] : matches[k][2]]
-
-    return(span)
+    matches = matcher(sent, as_spans=True, with_alignments=True)
+    return matches[-1]
 
 def logic(input: str) -> List[Triple]:
     """Process natural language text to extract relationship triples from every sentence."""
