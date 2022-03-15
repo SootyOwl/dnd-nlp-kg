@@ -35,8 +35,9 @@ def subtree_matcher(doc):
 
     for tok in doc:
         # find dependency tag that contains the text "subjpass"    
-        if tok.dep_.find("subjpass") == True:
+        if not tok.dep_.find("subjpass") == -1:
             subjpass = 1
+            break
 
     x = ''
     y = ''
@@ -49,6 +50,9 @@ def subtree_matcher(doc):
 
             if tok.dep_.endswith("obj") == True:
                 x = tok
+
+            if x and y:
+                break
     
     # if subjpass == 0 then sentence is not passive
     else:
