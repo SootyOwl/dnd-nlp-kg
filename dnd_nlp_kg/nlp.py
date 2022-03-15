@@ -44,19 +44,19 @@ def subtree_matcher(doc):
     if subjpass == 1:
         for i,tok in enumerate(doc):
             if tok.dep_.find("subjpass") == True:
-                y = tok.text
+                y = tok
 
             if tok.dep_.endswith("obj") == True:
-                x = tok.text
+                x = tok
     
     # if subjpass == 0 then sentence is not passive
     else:
         for i,tok in enumerate(doc):
             if tok.dep_.endswith("subj") == True:
-                x = tok.text
+                x = tok
 
             if tok.dep_.endswith("obj") == True:
-                y = tok.text
+                y = tok
 
             if x and y:
                 break
@@ -85,7 +85,7 @@ def get_relation(doc):
 
     span = doc[matches[k][1] : matches[k][2]]
 
-    return(span.text)
+    return(span)
 
 def logic(input: str) -> List[Triple]:
     """Process natural language text to extract relationship triples from every sentence."""
@@ -94,7 +94,9 @@ def logic(input: str) -> List[Triple]:
     for sent in doc.sents:
         subj, obj = subtree_matcher(sent)
         pred = get_relation(sent)
-        triples.append(Triple(subj, pred, obj))
+        # get subject and conjuncts
+        for sub in (subj, *subj.conjuncts):
+            triples.append(Triple(sub.text, pred.text, obj.text))
     return triples
     
 
