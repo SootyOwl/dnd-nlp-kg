@@ -34,4 +34,8 @@ def test_conjuctions():
         assert test in triples
 
 def test_passive_sentences():
-    input = "The "
+    input = "The saxophone was played by Lisa. Bart was strangled by Homer."
+    expected = [Triple("Lisa", "played", "saxophone"), Triple("Homer", "strangled", "Bart")]
+    triples = logic(input)
+    for test in expected:
+        assert test in triples
