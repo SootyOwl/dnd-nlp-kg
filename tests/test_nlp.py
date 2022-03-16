@@ -47,3 +47,13 @@ def test_active_sentences():
     triples = logic(input)
     for test in expected:
         assert test in triples
+
+def test_actions():
+    input = "Maggie killed Mr. Burns. Homer found the sugar."
+    expected = [
+        Triple("Maggie", "killed", "Mr. Burns"),
+        Triple("Homer", "found", "the sugar")
+    ]
+    triples = logic(input)
+    for test in expected:
+        assert test in triples
