@@ -2,6 +2,7 @@
 
 - [1.1. Introduction and Intent](#11-introduction-and-intent)
 - [Installation](#installation)
+- [Inspiration](#inspiration)
 
 ## 1.1. Introduction and Intent
 
@@ -20,7 +21,9 @@ The main features I am planning on implementing are:
 ```console
 poetry install
 poetry run python -m spacy download en_core_web_sm
-
 poetry run python -m coreferee install en
-
 ```
+
+## Inspiration
+
+<https://github.com/NSchrading/intro-spacy-nlp/blob/master/subject_object_extraction.py>
