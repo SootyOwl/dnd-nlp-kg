@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import List
 import spacy
 from spacy.matcher import Matcher
+import coreferee  # noqa: F401
 
 nlp = spacy.load("en_core_web_sm")
 nlp.add_pipe("sentencizer")
