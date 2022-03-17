@@ -56,6 +56,10 @@ jobs:
 
       - name: Install dependencies
         run: poetry install --with dev
-      
+      - name: Get SpaCy model
+        run: poetry run python -m spacy download en_core_web_sm
+      - name: Get corefree model
+        run: poetry run python -m coreferee install en
+
       - name: Run tests
         run: poetry run pytest
