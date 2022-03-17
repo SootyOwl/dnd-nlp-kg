@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dnd-nlp-kg"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
@@ -8,7 +8,12 @@ packages = [{include = "dnd_nlp_kg"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+spacy = "3.1.4"
+coreferee = "^1.1"
+textacy = "^0.12.0"
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.1.0"
 
 [build-system]
 requires = ["poetry-core"]

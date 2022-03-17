@@ -1,7 +1,8 @@
-# 1. D&D-NLP-KG: Create a knowledge graph of your D&D notes using natural language processing <!-- omit in toc -->
+# 1. D&D-NLP-KG: Create a knowledge graph of your D&D notes using natural language processing<!-- omit in toc -->
 
-- [1. D&D-NLP-KG: Create a knowledge graph of your D&D notes using natural language processing](#1-dd-nlp-kg-create-a-knowledge-graph-of-your-dd-notes-using-natural-language-processing)
-  - [1.1. Introduction and Intent](#11-introduction-and-intent)
+- [1.1. Introduction and Intent](#11-introduction-and-intent)
+- [Installation](#installation)
+- [Inspiration](#inspiration)
 
 ## 1.1. Introduction and Intent
 
@@ -14,3 +15,15 @@ The main features I am planning on implementing are:
 - A markdown note-taking tool
 - NLP using SpaCy to extract relationship triples from the notes
 - A display of entities from the notes (NPCs, Towns, etc.) in the form of a directed graph, the edges being the relationships between pairs of entities
+
+## Installation
+
+```console
+poetry install
+poetry run python -m spacy download en_core_web_sm
+poetry run python -m coreferee install en
+```
+
+## Inspiration
+
+<https://github.com/NSchrading/intro-spacy-nlp/blob/master/subject_object_extraction.py>
