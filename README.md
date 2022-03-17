@@ -1,5 +1,7 @@
 # 1. D&D-NLP-KG: Create a knowledge graph of your D&D notes using natural language processing<!-- omit in toc -->
 
+[![flake8-black, pytest](https://github.com/SootyOwl/dnd-nlp-kg/actions/workflows/flake8-black-pytest.yml/badge.svg?branch=main)](https://github.com/SootyOwl/dnd-nlp-kg/actions/workflows/flake8-black-pytest.yml)
+
 - [1.1. Introduction and Intent](#11-introduction-and-intent)
 - [Installation](#installation)
 - [Inspiration](#inspiration)
