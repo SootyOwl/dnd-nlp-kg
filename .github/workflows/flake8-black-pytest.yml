@@ -16,10 +16,9 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  lint:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # checkout repo, setup python 3.9, install poetry preview
@@ -37,6 +36,26 @@ jobs:
 
       - name: Run black
         run: poetry run black .
-        
+
       - name: Run flake8
         run: poetry run flake8
+  test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # checkout repo, setup python 3.9, install poetry preview
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+      - uses: Gr1N/setup-poetry@v7
+        with:
+          poetry-preview: true
+      - run: poetry --version
+
+      - name: Install dependencies
+        run: poetry install --with dev
+      
+      - name: Run tests
+        run: poetry run pytest
