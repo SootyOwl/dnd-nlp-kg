@@ -48,7 +48,7 @@ def subtree_matcher(sent):
     # if subjpass == 1 then sentence is passive
     if subjpass == 1:
         for i, tok in enumerate(sent):
-            if tok.dep_.find("subjpass") is True:
+            if not tok.dep_.find("subjpass") == -1:
                 y = tok
 
             if tok.dep_.endswith("obj") is True:
