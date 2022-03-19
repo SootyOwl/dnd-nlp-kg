@@ -5,6 +5,7 @@
 - [1.1. Introduction and Intent](#11-introduction-and-intent)
 - [Installation](#installation)
 - [Inspiration](#inspiration)
+- [Example of a knowledge graph](#example-of-a-knowledge-graph)
 
 ## 1.1. Introduction and Intent
 
@@ -29,3 +30,9 @@ poetry run python -m coreferee install en
 ## Inspiration
 
 <https://github.com/NSchrading/intro-spacy-nlp/blob/master/subject_object_extraction.py>
+
+## Example of a knowledge graph
+
+This was generated from hand-written SVO triples by the code in `vis.py`
+
+![game-of-thrones-knowledge-graph](./graph.pydot.png)
