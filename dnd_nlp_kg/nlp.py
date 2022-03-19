@@ -4,12 +4,10 @@ from dataclasses import dataclass
 from typing import List
 import spacy
 from spacy.matcher import Matcher
-import coreferee  # noqa: F401
 
 
 nlp = spacy.load("en_core_web_sm")
 nlp.add_pipe("sentencizer")
-nlp.add_pipe("coreferee")
 nlp.add_pipe("merge_noun_chunks")
 nlp.add_pipe("merge_entities")
 
