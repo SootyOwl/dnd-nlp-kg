@@ -24,7 +24,6 @@ The main features I am planning on implementing are:
 ```console
 poetry install
 poetry run python -m spacy download en_core_web_sm
-poetry run python -m coreferee install en
 ```
 
 ## 3. Inspiration
