@@ -5,6 +5,7 @@ from typing import List
 import spacy
 from spacy.matcher import Matcher
 
+
 nlp = spacy.load("en_core_web_sm")
 nlp.add_pipe("sentencizer")
 nlp.add_pipe("coreferee")
@@ -67,7 +68,8 @@ def subtree_matcher(sent):
 
             if x and y:
                 break
-
+        else:
+            raise RuntimeError(f"Missing subject/object! subject: {x}, object: {y}")
     return x, y
 
 
@@ -116,7 +118,7 @@ def write(triples: List[Triple]) -> None:
 
 def main():
     """Run the RLW."""
-    input = read("./data/tarakona.txt")
+    input = read("./data/test_vestigehills.txt")
     triple_list = logic(input)
     write(triple_list)
 
