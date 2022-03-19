@@ -1,6 +1,6 @@
 """Use SpaCy to extract relationship triples from input text."""
 
-from dataclasses import dataclass
+from collections import namedtuple
 from typing import List
 import spacy
 from spacy.matcher import Matcher
@@ -11,15 +11,7 @@ nlp.add_pipe("sentencizer")
 nlp.add_pipe("merge_noun_chunks")
 nlp.add_pipe("merge_entities")
 
-
-@dataclass
-class Triple:
-    subject: str
-    predicate: str
-    object: str
-
-    def __str__(self) -> str:
-        return f"({self.subject}, {self.predicate}, {self.object})"
+Triple = namedtuple("Triple", ["subject", "predicate", "object"])
 
 
 def read(filename) -> str:
