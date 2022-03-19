@@ -2,12 +2,12 @@
 
 [![flake8-black, pytest](https://github.com/SootyOwl/dnd-nlp-kg/actions/workflows/flake8-black-pytest.yml/badge.svg?branch=main)](https://github.com/SootyOwl/dnd-nlp-kg/actions/workflows/flake8-black-pytest.yml)
 
-- [1.1. Introduction and Intent](#11-introduction-and-intent)
-- [Installation](#installation)
-- [Inspiration](#inspiration)
-- [Example of a knowledge graph](#example-of-a-knowledge-graph)
+- [1. Introduction and Intent](#1-introduction-and-intent)
+- [2. Installation](#2-installation)
+- [3. Inspiration](#3-inspiration)
+- [4. Example of a knowledge graph](#4-example-of-a-knowledge-graph)
 
-## 1.1. Introduction and Intent
+## 1. Introduction and Intent
 
 I'm always looking to improve my DM notes. I recently started using a directed graph to keep track of various relationships between entities in my D&D campaign, and found it very helpful. However, the tool I used to create the graph was cumbersome and not designed specifically for notetaking.
 
@@ -19,7 +19,7 @@ The main features I am planning on implementing are:
 - NLP using SpaCy to extract relationship triples from the notes
 - A display of entities from the notes (NPCs, Towns, etc.) in the form of a directed graph, the edges being the relationships between pairs of entities
 
-## Installation
+## 2. Installation
 
 ```console
 poetry install
@@ -27,11 +27,11 @@ poetry run python -m spacy download en_core_web_sm
 poetry run python -m coreferee install en
 ```
 
-## Inspiration
+## 3. Inspiration
 
 <https://github.com/NSchrading/intro-spacy-nlp/blob/master/subject_object_extraction.py>
 
-## Example of a knowledge graph
+## 4. Example of a knowledge graph
 
 This was generated from hand-written SVO triples by the code in `vis.py`
 
