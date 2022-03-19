@@ -21,9 +21,11 @@ def test_triples_generation():
 
 
 def test_noun_expansion():
-    input = "Bart attends Springfield Elementary School. \
-        Homer Simpson works at Springfield Nuclear Power Plant. \
-                 Mr. Burns is the leader of Springfield Nuclear Power Plant."
+    input = (
+        "Bart attends Springfield Elementary School. "
+        "Homer Simpson works at Springfield Nuclear Power Plant. "
+        "Mr. Burns is the leader of Springfield Nuclear Power Plant."
+    )
     expected = [
         Triple("Bart", "attends", "Springfield Elementary School"),
         Triple("Homer Simpson", "works at", "Springfield Nuclear Power Plant"),

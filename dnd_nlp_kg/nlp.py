@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import List
 import spacy
 from spacy.matcher import Matcher
+import coreferee  # noqa: F401
 
 
 nlp = spacy.load("en_core_web_sm")
@@ -48,7 +49,7 @@ def subtree_matcher(sent):
     # if subjpass == 1 then sentence is passive
     if subjpass == 1:
         for i, tok in enumerate(sent):
-            if tok.dep_.find("subjpass") is True:
+            if not tok.dep_.find("subjpass") == -1:
                 y = tok
 
             if tok.dep_.endswith("obj") is True:
