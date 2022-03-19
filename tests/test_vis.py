@@ -1,4 +1,4 @@
-from dnd_nlp_kg.vis import save_graph, logic
+from dnd_nlp_kg.vis import logic
 import networkx as nx
 import pytest
 from dnd_nlp_kg.nlp import Triple as TestTriple
@@ -20,8 +20,9 @@ def triples():
         TestTriple("Tyrion Lannister", "killed", "Tywin Lannister"),
         TestTriple("Tywin Lannister", "father of", "Jamie Lannister"),
         TestTriple("Tywin Lannister", "father of", "Cersei Lannister"),
-        TestTriple("Tywin Lannister", "father of", "Tyrion Lannister")
+        TestTriple("Tywin Lannister", "father of", "Tyrion Lannister"),
     ]
+
 
 @pytest.fixture
 def graph(triples):
@@ -44,7 +45,8 @@ def test_graph_edges_connected(triples, graph):
     for triple in triples:
         assert (triple.subject, triple.object) in edges
 
+
 def test_graph_edges_correct_label(triples, graph):
-    edge_data = [graph.get_edge_data(*edge)['label'] for edge in graph.edges]
+    edge_data = [graph.get_edge_data(*edge)["label"] for edge in graph.edges]
     for triple in triples:
         assert triple.predicate in edge_data

@@ -1,8 +1,6 @@
 from collections import namedtuple
-from typing import List, Protocol
+from typing import List
 import networkx as nx
-import pandas as pd
-import matplotlib.pyplot as plt
 from random import randint
 
 
@@ -16,7 +14,11 @@ def load_triples():
 def logic(triples: List[Triple]) -> nx.DiGraph:
     # create pandas dataframe from Triples
     edges = [
-        (triple.subject, triple.object, {"label": triple.predicate, "test": randint(0, 100)})
+        (
+            triple.subject,
+            triple.object,
+            {"label": triple.predicate, "test": randint(0, 100)},
+        )
         for triple in triples
     ]
     G = nx.DiGraph()
@@ -32,10 +34,12 @@ def save_graph(G: nx.Graph, f_name: str = "graph"):
         edge_labels={
             (u, v): G.get_edge_data(u, v)["label"]
             for u, v in [edge for edge in G.edges]
-        }
+        },
     )
     pydotgraph = nx.drawing.nx_pydot.to_pydot(G)
-    pydotgraph.write_png(f'{f_name}.pydot.png', )
+    pydotgraph.write_png(
+        f"{f_name}.pydot.png",
+    )
     nx.drawing.nx_pydot.write_dot(G, f"{f_name}.dot")
 
 
