@@ -8,7 +8,6 @@ from spacy.matcher import Matcher
 
 
 nlp = spacy.load("en_core_web_lg")
-# nlp.add_pipe("setencizer")
 nlp.add_pipe("merge_noun_chunks")
 nlp.add_pipe("merge_entities")
 
