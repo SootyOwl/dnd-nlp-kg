@@ -8,7 +8,7 @@ packages = [{include = "dnd_nlp_kg"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-spacy = "3.1.4"
+spacy = "^3.1.4"
 textacy = "^0.12.0"
 networkx = "^2.7.1"
 pandas = "^1.4.1"
@@ -19,6 +19,7 @@ pydot = "^1.4.2"
 pytest = "^7.1.0"
 flake8 = "^4.0.1"
 black = {version = "^20.8b1", allow-prereleases = true}
+
 
 
 
