@@ -1,13 +1,13 @@
 """Use SpaCy to extract relationship triples from input text."""
 
 from collections import namedtuple
+import itertools
 from typing import List
 import spacy
 from spacy.matcher import Matcher
 
 
-nlp = spacy.load("en_core_web_sm")
-nlp.add_pipe("sentencizer")
+nlp = spacy.load("en_core_web_lg")
 nlp.add_pipe("merge_noun_chunks")
 nlp.add_pipe("merge_entities")
 
@@ -94,10 +94,11 @@ def logic(input: str) -> List[Triple]:
         if not subj or not obj:
             continue
         pred = get_relation(sent)
+        if not pred:
+            continue
         # get subject and conjuncts
-        for sub in (subj, *subj.conjuncts):
-            for ob in (obj, * obj.conjuncts):
-                triples.append(Triple(sub.text.strip(), pred.text.strip(), ob.text.strip()))
+        for sub, obj in itertools.product((subj, *subj.conjuncts), (obj, *obj.conjuncts)):
+            triples.append(Triple(sub.text, pred.text, obj.text))
     return triples
 
 

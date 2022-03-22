@@ -38,9 +38,9 @@ def save_graph(G: nx.Graph, f_name: str = "graph"):
     )
     pydotgraph = nx.drawing.nx_pydot.to_pydot(G)
     pydotgraph.write_png(
-        f"{f_name}.pydot.png",
+        f"output/{f_name}.pydot.png",
     )
-    nx.drawing.nx_pydot.write_dot(G, f"{f_name}.dot")
+    nx.drawing.nx_pydot.write_dot(G, f"output/{f_name}.dot")
 
 
 def main():
