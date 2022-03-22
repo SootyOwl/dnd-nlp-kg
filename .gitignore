@@ -4,3 +4,4 @@ __pycache__
 .venv
 .pytest_cache
 output/*
+dnd_nlp_kg/data/session notes.txt
