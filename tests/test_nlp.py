@@ -5,6 +5,7 @@ def test_triple_generation():
     triple = logic("Bart hates school.")
     assert Triple(subject="Bart", predicate="hates", object="school") in triple
 
+
 # TODO: There are seven clause types in English. I shouldn't mix and match clause types in the tests.
 def test_svc():
     triples = logic(

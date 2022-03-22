@@ -102,21 +102,17 @@ def logic(input: str) -> List[Triple]:
             elif clause.type == 'SVC':
                 subj, pred, comp = prop
                 # fix obj
-                if comp.text == comp.root.text:
-                    # we've no idea if there's an object
-                    for tok in comp.subtree:
-                        if tok.dep_.endswith("obj"):
-                            obj = tok
-                elif comp.ents:
+                # we've no idea if there's an object
+                if comp.ents:
                     obj = comp.ents[0]
                 else:
-                    for tok in comp:
+                    for tok in comp.subtree:
                         if tok.dep_.endswith("obj"):
                             obj = tok
                             break
                     else:
                         break
-                pred = ' '.join((pred.text, comp.root.text))
+                pred = ' '.join((str(pred), comp.root.text))
             else:
                 break
             # turn spans to strings
