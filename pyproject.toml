@@ -19,6 +19,7 @@ pydot = "^1.4.2"
 pytest = "^7.1.0"
 flake8 = "^4.0.1"
 black = {version = "^20.8b1", allow-prereleases = true}
+ipykernel = "^6.9.2"
 
 
 
