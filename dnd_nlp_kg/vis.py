@@ -11,7 +11,7 @@ def load_triples():
     return
 
 
-def logic(triples: List[Triple]) -> nx.DiGraph:
+def logic(triples: List[Triple]) -> nx.MultiDiGraph:
     # create pandas dataframe from Triples
     edges = [
         (
@@ -21,7 +21,7 @@ def logic(triples: List[Triple]) -> nx.DiGraph:
         )
         for triple in triples
     ]
-    G = nx.DiGraph()
+    G = nx.MultiDiGraph()
     G.add_edges_from(edges)
     return G
 
