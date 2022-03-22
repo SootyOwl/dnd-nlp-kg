@@ -5,31 +5,31 @@ def test_triple_generation():
     triple = logic("Bart hates school.")
     assert Triple(subject="Bart", predicate="hates", object="school") in triple
 
-
-def test_triples_generation():
+# TODO: There are seven clause types in English. I shouldn't mix and match clause types in the tests.
+def test_svc():
     triples = logic(
-        "Bart is the brother of Lisa. Homer is married to Marge. Maggie is the daughter of Homer."
+        "Bart is Lisa's brother. Homer is married to Marge. Maggie is the daughter of Homer."
     )
     assert (
-        Triple(subject="Bart", predicate="is the brother of", object="Lisa") in triples
+        Triple(subject="Bart", predicate="is brother", object="Lisa") in triples
     )
     assert Triple(subject="Homer", predicate="is married", object="Marge") in triples
     assert (
-        Triple(subject="Maggie", predicate="is the daughter of", object="Homer")
+        Triple(subject="Maggie", predicate="is daughter", object="Homer")
         in triples
     )
 
 
-def test_noun_expansion():
+def test_svo():
     input = (
-        "Bart attends Springfield Elementary School. "
+        "Bart attended Springfield Elementary School. "
         "Homer Simpson works at Springfield Nuclear Power Plant. "
-        "Mr. Burns is the leader of Springfield Nuclear Power Plant."
+        "Mr. Burns will lead Springfield Nuclear Power Plant."
     )
     expected = [
-        Triple("Bart", "attends", "Springfield Elementary School"),
+        Triple("Bart", "attended", "Springfield Elementary School"),
         Triple("Homer Simpson", "works at", "Springfield Nuclear Power Plant"),
-        Triple("Mr. Burns", "is the leader of", "Springfield Nuclear Power Plant"),
+        Triple("Mr. Burns", "will lead", "Springfield Nuclear Power Plant"),
     ]
     triples = logic(input)
     for test in expected:
@@ -52,8 +52,8 @@ def test_conjuctions():
 def test_passive_sentences():
     input = "The saxophone was played by Lisa. Bart was strangled by Homer."
     expected = [
-        Triple("Lisa", "played", "The saxophone"),
-        Triple("Homer", "strangled", "Bart"),
+        Triple("The saxophone", "was played by", "Lisa"),
+        Triple("Bart", "was strangled by", "Homer"),
     ]
     triples = logic(input)
     for test in expected:
