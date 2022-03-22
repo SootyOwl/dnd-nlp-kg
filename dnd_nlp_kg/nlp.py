@@ -100,9 +100,14 @@ def logic(input: str) -> List[Triple]:
                 # fix predicate
                 pred = pred.text + ' ' + (adjunct.text.replace(obj.text, ''))
             elif clause.type == 'SVC':
-                subj, pred, comp = clause.subject, clause.verb, clause.complement
+                subj, pred, comp = prop
                 # fix obj
-                if comp.ents:
+                if comp.text == comp.root.text:
+                    # we've no idea if there's an object
+                    for tok in comp.subtree:
+                        if tok.dep_.endswith("obj"):
+                            obj = tok
+                elif comp.ents:
                     obj = comp.ents[0]
                 else:
                     for tok in comp:
