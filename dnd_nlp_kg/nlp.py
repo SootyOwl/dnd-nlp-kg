@@ -1,15 +1,15 @@
 """Use SpaCy to extract relationship triples from input text."""
 
 from collections import namedtuple
-import itertools
 from typing import List
 import spacy
 from spacy.matcher import Matcher
+import claucy  # noqa
 
-
-nlp = spacy.load("en_core_web_lg")
-nlp.add_pipe("merge_noun_chunks")
-nlp.add_pipe("merge_entities")
+nlp = spacy.load("en_core_web_trf")
+# nlp.add_pipe("merge_noun_chunks")
+# nlp.add_pipe("merge_entities")
+nlp.add_pipe("claucy")
 
 Triple = namedtuple("Triple", ["subject", "predicate", "object"])
 
@@ -21,7 +21,7 @@ def read(filename) -> str:
     dirname = os.path.dirname(__file__)
     filename = os.path.join(dirname, filename)
     with open(filename, "r") as fin:
-        return ". ".join([line.strip() for line in fin.readlines()])
+        return fin.read()
 
 
 def subtree_matcher(sent):
@@ -89,16 +89,31 @@ def logic(input: str) -> List[Triple]:
     """Process natural language text to extract relationship triples from every sentence."""
     triples = []
     doc = nlp(input)
-    for sent in doc.sents:
-        subj, obj = subtree_matcher(sent)
-        if not subj or not obj:
-            continue
-        pred = get_relation(sent)
-        if not pred:
-            continue
-        # get subject and conjuncts
-        for sub, obj in itertools.product((subj, *subj.conjuncts), (obj, *obj.conjuncts)):
-            triples.append(Triple(sub.text, pred.text, obj.text))
+    for clause in doc._.clauses:
+        props = clause.to_propositions(as_text=False, inflect=None)
+        for prop in filter(lambda x: len(x) == 3, props):
+            if clause.type == 'SVO':
+                subj, pred, obj = prop
+            elif clause.type == 'SV' and prop[-1].ents:
+                subj, pred, adjunct = prop
+                obj = adjunct.ents[0]
+                # fix predicate
+                pred = pred.text + ' ' + (adjunct.text.replace(obj.text, ''))
+            elif clause.type == 'SVC':
+                subj, pred, comp = clause.subject, clause.verb, clause.complement
+                # fix obj
+                for tok in comp:
+                    if tok.dep_.endswith("obj"):
+                        obj = tok
+                        break
+                else:
+                    break
+                pred = ' '.join((pred.text, comp.root.text))
+            else:
+                break
+            # turn spans to strings
+            ssubj, spred, sobj = map(lambda x: str(x).strip(), [subj, pred, obj])
+            triples.append(Triple(ssubj, spred, sobj))
     return triples
 
 
@@ -111,7 +126,7 @@ def write(triples: List[Triple]) -> None:
 
 def main():
     """Run the RLW."""
-    input = read("./data/test_vestigehills.txt")
+    input = read("./data/humblewood.txt")
     triple_list = logic(input)
     write(triple_list)
 
