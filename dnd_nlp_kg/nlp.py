@@ -102,12 +102,15 @@ def logic(input: str) -> List[Triple]:
             elif clause.type == 'SVC':
                 subj, pred, comp = clause.subject, clause.verb, clause.complement
                 # fix obj
-                for tok in comp:
-                    if tok.dep_.endswith("obj"):
-                        obj = tok
-                        break
+                if comp.ents:
+                    obj = comp.ents[0]
                 else:
-                    break
+                    for tok in comp:
+                        if tok.dep_.endswith("obj"):
+                            obj = tok
+                            break
+                    else:
+                        break
                 pred = ' '.join((pred.text, comp.root.text))
             else:
                 break
