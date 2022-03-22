@@ -59,8 +59,6 @@ def subtree_matcher(sent):
 
             if x and y:
                 break
-        else:
-            raise RuntimeError(f"Missing subject/object! subject: {x}, object: {y}")
     return x, y
 
 
@@ -93,10 +91,13 @@ def logic(input: str) -> List[Triple]:
     doc = nlp(input)
     for sent in doc.sents:
         subj, obj = subtree_matcher(sent)
+        if not subj or not obj:
+            continue
         pred = get_relation(sent)
         # get subject and conjuncts
         for sub in (subj, *subj.conjuncts):
-            triples.append(Triple(sub.text, pred.text, obj.text))
+            for ob in (obj, * obj.conjuncts):
+                triples.append(Triple(sub.text.strip(), pred.text.strip(), ob.text.strip()))
     return triples
 
 
